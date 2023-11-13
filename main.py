@@ -1,50 +1,36 @@
-##############################################################################
-#                                                                            #                       
-#   argparse — Parser for command-line options, arguments and sub-commands   #     
-#                                                                            #
-#   Ironhack Data Part Time --> Sep-2023                                    #
-#                                                                            #
-##############################################################################
+import pandas as pd 
+import requests
+import numpy as np
 
+from modules import functions
+from modules import argparse
 
-# import library
+#bicimad
+bicimad = pd.read_csv("./data/raw/bicimad_stations.csv", sep="\t")
+split_bicimad = bicimad['geometry.coordinates'].str.strip('[]').str.split(',', expand=True).astype('float64')
+split_bicimad.columns = ['longitude', 'latitude']
+bicimad= pd.concat([bicimad,split_bicimad],axis=1)
+bicimad = bicimad.drop(["Unnamed: 0", "geometry.coordinates", "light", "number", "activate", "no_available", "geometry.type"], axis = 1) 
 
-import argparse
+#bicipark
+bicipark = pd.read_csv("./data/raw/bicipark_stations.csv", sep=";")
+split_bicipark = bicipark['geometry.coordinates'].str.strip('[]').str.split(',', expand=True).astype('float64')
+split_bicipark.columns = ['longitude', 'latitude']
+bicipark= pd.concat([bicipark,split_bicipark],axis=1)
+bicipark = bicipark.drop(["Unnamed: 0","zip_code", "enabled", "reserved_places","geometry.type","geometry.coordinates"], axis=1)
 
+#places
+places = requests.get("https://datos.madrid.es/egob/catalogo/300614-0-centros-educativos.json")
+places = places.json()
+places = places["@graph"]
+places = pd.json_normalize(places)
+places = places.drop(["@id", "id", "relation", "address.district.@id", "address.area.@id", "address.locality", "address.postal-code", "organization.organization-desc", "organization.accesibility", "organization.schedule", "organization.services", "@type"], axis = 1)
 
-# Script functions 
+def main():
+    BICIMAD_RESULT = functions.nearest_bicimad(places, bicimad) 
+    BICIMAD_RESULT.to_csv("./data/results/BICIMAD_RESULT.csv")
+    BICIPARK_RESULT = functions.nearest_bicipark(places, bicipark)
+    BICIPARK_RESULT.to_csv("./data/results/BICIPARK_RESULT.csv")
 
-def enter_number(message):
-    return float(input(message))
-
-def sum_function(x1, x2):
-    return x1 + x2
-    
-def multiply_function(x1, x2):
-    return x1 * x2
-    
-
-# Argument parser function
-
-def argument_parser():
-    parser = argparse.ArgumentParser(description= 'Application for arithmetic calculations' )
-    help_message ='You have two options. Option 1: "mult" performs multiplication of two given numbers. Option 2: "sum" performs the sum of two given numbers' 
-    parser.add_argument('-f', '--function', help=help_message, type=str)
-    args = parser.parse_args()
-    return args
-
-
-# Pipeline execution
-
-if __name__ == '__main__':
-    if argument_parser().function == 'mult':
-        n1 = enter_number('Enter a number: ')
-        n2 = enter_number('Enter another number: ')
-        result = multiply_function(n1, n2)
-    elif argument_parser().function == 'sum':
-        n1 = enter_number('Enter a number: ')
-        n2 = enter_number('Enter another number: ')
-        result = sum_function(n1, n2)
-    else:
-        result = 'FATAL ERROR...you need to select the correct method'
-    print(f'The result is => {result}')
+if __name__ == "__main__":
+    main()
