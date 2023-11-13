@@ -1,5 +1,10 @@
 import argparse
 
+def specific(df):
+    place = input("Choose a place of interest to see the nearest station: ")
+    df = df.loc[df["place"] == place]
+    return df
+
 def argument_parser():
     parser = argparse.ArgumentParser(description= "Application for rent or park a bike in Madrid")
     help_message = "You have two options. Option 1: 'rent' gives you the nearest bicimad station. Option 2: 'park' gives you the nearest bicipark station."

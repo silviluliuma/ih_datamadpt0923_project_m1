@@ -27,10 +27,22 @@ places = pd.json_normalize(places)
 places = places.drop(["@id", "id", "relation", "address.district.@id", "address.area.@id", "address.locality", "address.postal-code", "organization.organization-desc", "organization.accesibility", "organization.schedule", "organization.services", "@type"], axis = 1)
 
 def main():
-    BICIMAD_RESULT = functions.nearest_bicimad(places, bicimad) 
-    BICIMAD_RESULT.to_csv("./data/results/BICIMAD_RESULT.csv")
-    BICIPARK_RESULT = functions.nearest_bicipark(places, bicipark)
-    BICIPARK_RESULT.to_csv("./data/results/BICIPARK_RESULT.csv")
+    if argparse.argument_parser().display == "one":
+        if argparse.argument_parser().function == "rent":
+            BICIMAD_RESULT = functions.nearest_bicimad(places, bicimad)
+            RESULT = argparse.specific(BICIMAD_RESULT)
+            RESULT.to_csv("./data/results/BICIMAD_ONE_RESULT.csv")
+        elif argparse.argument_parser().function == "park":
+            BICIPARK_RESULT = functions.nearest_bicipark(places, bicipark)
+            RESULT = argparse.specific(BICIPARK_RESULT)
+            RESULT.to_csv("./data/results/BICIPARK_ONE_RESULT.csv")
+    elif argparse.argument_parser().display == "all":
+        if argparse.argument_parser().function == "rent":
+            BICIMAD_RESULT = functions.nearest_bicimad(places, bicimad) 
+            BICIMAD_RESULT.to_csv("./data/results/BICIMAD_RESULT.csv")
+        elif argparse.argument_parser().function == "park":
+            BICIPARK_RESULT = functions.nearest_bicipark(places, bicipark)
+            BICIPARK_RESULT.to_csv("./data/results/BICIPARK_RESULT.csv")
 
 if __name__ == "__main__":
     main()
