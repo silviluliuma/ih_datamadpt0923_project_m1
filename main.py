@@ -5,6 +5,9 @@ import numpy as np
 from modules import functions
 from modules import argparse
 
+from fuzzywuzzy import fuzz
+from fuzzywuzzy import process
+
 #bicimad
 bicimad = pd.read_csv("./data/raw/bicimad_stations.csv", sep="\t")
 split_bicimad = bicimad['geometry.coordinates'].str.strip('[]').str.split(',', expand=True).astype('float64')
