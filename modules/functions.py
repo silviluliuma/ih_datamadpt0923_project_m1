@@ -31,10 +31,11 @@ def nearest_bicimad(places, bicimad):
         station = bicimad['name'].iloc[station_index].split('- ')[1]
         station_address = bicimad["address"].iloc[station_index]
         bikes_available = bicimad["dock_bikes"].iloc[station_index]
+        station_id = bicimad["id"].iloc[station_index]
         place_address = places["address.street-address"][x]
         place = places["title"][x]
         min_distance = round(distance_matrix[station_index, x], 2)
-        data_list.append({"place": place, "place_address": place_address, "station_name": station, "bikes_available": bikes_available, "station_address": station_address,  "distance": min_distance})
+        data_list.append({"place": place, "place_address": place_address, "station_name": station, "bikes_available": bikes_available, "station_id" : station_id, "station_address": station_address,  "distance": min_distance})
         
     return pd.DataFrame(data_list)
 
@@ -68,9 +69,85 @@ def nearest_bicipark(places, bicipark):
         station = bicipark['stationName'].iloc[station_index]
         station_address = bicipark["address"].iloc[station_index]
         spots_available = bicipark["free_places"].iloc[station_index]
+        station_id = bicipark["stationId"].iloc[station_index]
         place_address = places["address.street-address"][x]
         place = places["title"][x]
         min_distance = round(distance_matrix[station_index, x], 2)
-        data_list_bicipark.append({"place": place, "place_address": place_address, "station_name": station, "spots_available" : spots_available, "station_address": station_address,  "distance": min_distance})
+        data_list_bicipark.append({"place": place, "place_address": place_address, "station_name": station, "station_id" : station_id, "spots_available" : spots_available, "station_address": station_address,  "distance": min_distance})
         
     return pd.DataFrame(data_list_bicipark)
+
+def nearest_bicimad_realtime(places, bicimad_real_time):
+    data_list = []
+    
+    """ Latitud y longitud a radianes para realizar las operaciones. Luego los convierto a numpy para evitar error. """ 
+
+    places_lat_rad = np.radians(places['location.latitude'].to_numpy())
+    places_lon_rad = np.radians(places['location.longitude'].to_numpy())
+    bicimad_lat_rad = np.radians(bicimad_real_time['latitude'].to_numpy())
+    bicimad_lon_rad = np.radians(bicimad_real_time['longitude'].to_numpy())
+
+    dlat = bicimad_lat_rad[:, np.newaxis] - places_lat_rad
+    dlon = bicimad_lon_rad[:, np.newaxis] - places_lon_rad
+
+    """ Fórmula de Haversine para calcular las distancias. """ 
+    
+    a = np.sin(dlat / 2) ** 2 + np.cos(bicimad_lat_rad[:, np.newaxis]) * np.cos(places_lat_rad) * np.sin(dlon / 2) ** 2
+    c = 2 * np.arcsin(np.sqrt(a))
+    distance_matrix = c * 6371000 
+
+    """ Cálculo del índice del resultado con menor distancia """
+
+    min_distance_indices = np.argmin(distance_matrix, axis=0)
+
+    """ Creación del dataframe del resultado utilizando ese índice"""
+
+    for x in range(len(places["title"])):
+        station_index = min_distance_indices[x]
+        station = bicimad_real_time['name'].iloc[station_index]
+        station_address = bicimad_real_time["address"].iloc[station_index]
+        bikes_available = bicimad_real_time["dock_bikes"].iloc[station_index]
+        station_id = bicimad_real_time["id"].iloc[station_index]
+        place_address = places["address.street-address"][x]
+        place = places["title"][x]
+        min_distance = round(distance_matrix[station_index, x], 2)
+        data_list.append({"place": place, "place_address": place_address, "station_name": station, "bikes_available": bikes_available, "station_id" : station_id, "station_address": station_address,  "distance": min_distance})
+        
+    return pd.DataFrame(data_list)
+
+def nearest_bicimad_realtime_parking(places, bicimad_real_time):
+    data_list = []
+    
+    """ Latitud y longitud a radianes para realizar las operaciones. Luego los convierto a numpy para evitar error. """ 
+
+    places_lat_rad = np.radians(places['location.latitude'].to_numpy())
+    places_lon_rad = np.radians(places['location.longitude'].to_numpy())
+    bicimad_lat_rad = np.radians(bicimad_real_time['latitude'].to_numpy())
+    bicimad_lon_rad = np.radians(bicimad_real_time['longitude'].to_numpy())
+
+    dlat = bicimad_lat_rad[:, np.newaxis] - places_lat_rad
+    dlon = bicimad_lon_rad[:, np.newaxis] - places_lon_rad
+
+    """ Fórmula de Haversine para calcular las distancias. """ 
+    
+    a = np.sin(dlat / 2) ** 2 + np.cos(bicimad_lat_rad[:, np.newaxis]) * np.cos(places_lat_rad) * np.sin(dlon / 2) ** 2
+    c = 2 * np.arcsin(np.sqrt(a))
+    distance_matrix = c * 6371000 
+
+    """ Cálculo del índice del resultado con menor distancia """
+
+    min_distance_indices = np.argmin(distance_matrix, axis=0)
+
+    """ Creación del dataframe del resultado utilizando ese índice"""
+
+    for x in range(len(places["title"])):
+        station_index = min_distance_indices[x]
+        station = bicimad_real_time['name'].iloc[station_index]
+        station_address = bicimad_real_time["address"].iloc[station_index]
+        free_bases = bicimad_real_time["free_bases"].iloc[station_index]
+        station_id = bicimad_real_time["id"].iloc[station_index]
+        place_address = places["address.street-address"][x]
+        place = places["title"][x]
+        min_distance = round(distance_matrix[station_index, x], 2)
+        data_list.append({"place": place, "place_address": place_address, "station_name": station, "free_bases": free_bases, "station_id" : station_id, "station_address": station_address,  "distance": min_distance})
+    return pd.DataFrame(data_list)

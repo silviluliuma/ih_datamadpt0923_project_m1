@@ -55,10 +55,12 @@ def nearest_bicipark():
         station_index = min_distance_indices[x]
         station = bicipark['stationName'].iloc[station_index]
         station_address = bicipark["address"].iloc[station_index]
+        spots_available = bicipark["free_places"].iloc[station_index]
+        station_id = bicipark["stationId"].iloc[station_index]
         place_address = places["address.street-address"][x]
         place = places["title"][x]
         min_distance = round(distance_matrix[station_index, x], 2)
-        data_list_bicipark.append({"place": place, "place_address": place_address, "station_name": station, "station_address": station_address,  "distance": min_distance})
+        data_list_bicipark.append({"place": place, "place_address": place_address, "station_name": station, "station_id" : station_id, "spots_available" : spots_available, "station_address": station_address,  "distance": min_distance})
         
     return pd.DataFrame(data_list_bicipark)
 

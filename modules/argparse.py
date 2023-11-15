@@ -3,9 +3,7 @@ from fuzzywuzzy import fuzz
 from fuzzywuzzy import process
 
 """ Fórmula para coger un único lugar del dataset con su información. 
-    Se utiliza fuzzywuzzy para que el input del user no tenga que ser 100% exacto
-    En este caso, con que la coincidencia entre ambas strings sea mayor o igual a 90
-    es suficiente."""
+    Se utiliza fuzzywuzzy para que el input del user no tenga que ser 100% exacto."""
 
 def specific(df):
     place = input("Choose a place of interest to see the nearest station: ")
@@ -14,13 +12,6 @@ def specific(df):
         return df_filtered
     else:
         return "We haven't found a similar location..."
-
-"""
-def specific(df):
-    place = input("Choose a place of interest to see the nearest station: ")
-    df = df.loc[df["place"] == place]
-    return df 
-"""
 
 def argument_parser():
     parser = argparse.ArgumentParser(description= "Application for rent or park a bike in Madrid")
