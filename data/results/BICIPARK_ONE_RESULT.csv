@@ -1,2 +1,2 @@
-,place,place_address,station_name,station_address,distance
-0,ABC Schule (Alemán),CALLE LEIZARAN 27,Bicipark Orense,"Avenida General Perón, 27",1198.13
+,place,place_address,station_name,station_id,spots_available,station_address,distance
+0,ABC Schule (Alemán),CALLE LEIZARAN 27,Bicipark Orense,22,9,"Avenida General Perón, 27",1198.13
