@@ -17,7 +17,7 @@ def get_token():
 def get_available_bikes():
     load_dotenv('./.env')
     token = os.environ.get("access_token")
-    url = f"https://openapi.emtmadrid.es/v3/transport/bicimad/stations/"
+    url = "https://openapi.emtmadrid.es/v3/transport/bicimad/stations/"
     headers = {"accessToken" : token}
     response = requests.get(url, headers = headers).json()
     return response

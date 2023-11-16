@@ -36,6 +36,10 @@ bicimad_real_time[["longitude", "latitude"]] = bicimad_real_time["geometry"].app
 bicimad_real_time = bicimad_real_time.drop(["geofence", "integrator", "reservations_count", "tipo_estacionPBSC", "virtual_bikes", "virtual_bikes_num", "code_district", "code_suburb", "bikesGo", "geometry", "light", "no_available", "number", "virtualDelete", "geofenced_capacity"], axis = 1)
 
 def main():
+    df = func1()
+    df2 = func2(df)
+    args = argparse()
+    if args.app=="bicimad":
     if argparse.argument_parser().app=="bicimad":
         if argparse.argument_parser().display == "one":
             if argparse.argument_parser().function == "rent":
@@ -61,7 +65,6 @@ def main():
         elif argparse.argument_parser().display == "all":
             BICIPARK_RESULT = functions.nearest_bicipark(places, bicipark)
             BICIPARK_RESULT.to_csv("./data/results/BICIPARK_RESULT.csv")
-
 
 if __name__ == "__main__":
     main()
