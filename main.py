@@ -36,33 +36,30 @@ bicimad_real_time[["longitude", "latitude"]] = bicimad_real_time["geometry"].app
 bicimad_real_time = bicimad_real_time.drop(["geofence", "integrator", "reservations_count", "tipo_estacionPBSC", "virtual_bikes", "virtual_bikes_num", "code_district", "code_suburb", "bikesGo", "geometry", "light", "no_available", "number", "virtualDelete", "geofenced_capacity"], axis = 1)
 
 def main():
-    df = func1()
-    df2 = func2(df)
-    args = argparse()
+    args = argparse.argument_parser()
     if args.app=="bicimad":
-    if argparse.argument_parser().app=="bicimad":
-        if argparse.argument_parser().display == "one":
-            if argparse.argument_parser().function == "rent":
+        if args.display == "one":
+            if args.function == "rent":
                 BICIMAD_RESULT = functions.fnearest_bicimad_realtime(places, bicimad_real_time)
                 RESULT = argparse.specific(BICIMAD_RESULT)
                 RESULT.to_csv("./data/results/BICIMAD_ONE_RESULT.csv")
-            elif argparse.argument_parser().function == "park":
+            elif args.function == "park":
                 BICIPARK_RESULT = functions.fnearest_bicimad_realtime_parking(places, bicimad_real_time)
                 RESULT = argparse.specific(BICIPARK_RESULT)
                 RESULT.to_csv("./data/results/BICIMAD_PARKING_ONE_RESULT.csv")
-        elif argparse.argument_parser().display == "all":
-            if argparse.argument_parser().function == "rent":
+        elif args.display == "all":
+            if args.function == "rent":
                 BICIMAD_RESULT = functions.fnearest_bicimad_realtime(places, bicimad_real_time) 
                 BICIMAD_RESULT.to_csv("./data/results/BICIMAD_RESULT.csv")
-            elif argparse.argument_parser().function == "park":
+            elif args.function == "park":
                 BICIPARK_RESULT = functions.fnearest_bicimad_realtime_parking(places, bicimad_real_time)
                 BICIPARK_RESULT.to_csv("./data/results/BICIMAD_PARKING_RESULT.csv")
-    elif argparse.argument_parser().app == "bicipark":
-        if argparse.argument_parser().display == "one":
+    elif args.app == "bicipark":
+        if args.display == "one":
             BICIPARK_RESULT = functions.nearest_bicipark(places, bicipark)
             RESULT = argparse.specific(BICIPARK_RESULT)
             RESULT.to_csv("./data/results/BICIPARK_ONE_RESULT.csv")
-        elif argparse.argument_parser().display == "all":
+        elif args.display == "all":
             BICIPARK_RESULT = functions.nearest_bicipark(places, bicipark)
             BICIPARK_RESULT.to_csv("./data/results/BICIPARK_RESULT.csv")
 
