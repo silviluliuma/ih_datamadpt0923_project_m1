@@ -8,6 +8,7 @@ import pandas as pd
 import folium
 import openrouteservice as ors
 from geopy.distance import great_circle
+from folium.features import DivIcon
 
 def get_token():
     load_dotenv('../.env')
@@ -54,6 +55,16 @@ def create_route(client, start_coords, end_coords):
         format='geojson'
     )
 
+def number_DivIcon(color,number):
+    icon = DivIcon(
+            icon_size=(150,36),
+            icon_anchor=(20,40),
+            html = """<span class="fa-stack" style="font-size: 12pt; display: inline-block; position: relative;">
+    <span class="fa fa-circle-o fa-stack-2x" style="color: {:s};"></span>
+    <strong class="fa-stack-1x" style="line-height: 36px; color: black; position: absolute; width: 100%; text-align: center;">{:02d}</strong>
+</span>""".format(color, number))
+    return icon
+
 def get_route_map(stations_real_time, number_district):
     load_dotenv('../.env')
     client = ors.Client(key=os.environ.get("openroute_api_key"))
@@ -78,9 +89,13 @@ def get_route_map(stations_real_time, number_district):
                 distrito_high.loc[distrito_high['coordinates'] == nearest_station, 'light'] = 2
                 route = create_route(client, coords_list[-2], coords_list[-1])
                 van = "full"
+                folium.Marker(
+                                location=[nearest_station[1], nearest_station[0]],
+                                popup=f"Station with high occupation\nNumber: {stop_counter}",
+                                icon=folium.Icon(color='orange',icon_color='orange'),
+                            ).add_to(m)
                 folium.Marker(location=[nearest_station[1], nearest_station[0]],
-                            popup=f"Station with high occupation\nNumber: {stop_counter}",
-                            icon=folium.Icon(color='orange')).add_to(m)
+                            icon= number_DivIcon("#C55A11", stop_counter)).add_to(m)
                 stop_counter += 1
                 folium.PolyLine(locations=[coord[::-1] for coord in route['features'][0]['geometry']['coordinates']],
                                 color='red').add_to(m)
@@ -95,7 +110,9 @@ def get_route_map(stations_real_time, number_district):
                 van = "empty"
                 folium.Marker(location=[nearest_station[1], nearest_station[0]],
                             popup=f"Station with low occupation\nNumber: {stop_counter}",
-                            icon=folium.Icon(color='green')).add_to(m)
+                            icon=folium.Icon(color='darkgreen', icon_color='green')).add_to(m)
+                folium.Marker(location=[nearest_station[1], nearest_station[0]],
+                              icon = number_DivIcon("#12A14B", stop_counter)).add_to(m)
                 stop_counter += 1
                 folium.PolyLine(locations=[coord[::-1] for coord in route['features'][0]['geometry']['coordinates']],
                                 color='red').add_to(m)
