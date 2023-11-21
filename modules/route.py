@@ -91,7 +91,6 @@ def get_route_map(stations_real_time, number_district):
                 van = "full"
                 folium.Marker(
                                 location=[nearest_station[1], nearest_station[0]],
-                                popup=f"Station with high occupation\nNumber: {stop_counter}",
                                 icon=folium.Icon(color='orange',icon_color='orange'),
                             ).add_to(m)
                 folium.Marker(location=[nearest_station[1], nearest_station[0]],
@@ -109,10 +108,21 @@ def get_route_map(stations_real_time, number_district):
                 route = create_route(client, coords_list[-2], coords_list[-1])
                 van = "empty"
                 folium.Marker(location=[nearest_station[1], nearest_station[0]],
-                            popup=f"Station with low occupation\nNumber: {stop_counter}",
                             icon=folium.Icon(color='darkgreen', icon_color='green')).add_to(m)
                 folium.Marker(location=[nearest_station[1], nearest_station[0]],
                               icon = number_DivIcon("#12A14B", stop_counter)).add_to(m)
+                legend_html = '''
+                <div style="position: fixed; 
+                 bottom: 40px; left: 70px; width: 280px; height: 155px; 
+                 border:2px solid grey; z-index:9999; font-size:14px;
+                 background-color:white; padding: 10px; margin-left: 20px;
+                 ">&nbsp; <b>Instrucciones de reparto biciMAD</b> <br>
+                 &nbsp; 1. Por favor, cargue las bicicletas en las estaciones naranjas &nbsp; <i class="fa fa-map-marker" style="color:orange"></i><br>
+                 &nbsp; 2. Descárguelas en las estaciones verdes &nbsp; <i class="fa fa-map-marker" style="color:green"></i><br>
+                 &nbsp; Conduzca con cuidado y que tenga un buen turno &nbsp; <i class="fa fa-smile-o" style="color:blue"></i>
+                 </div>
+                '''
+                m.get_root().html.add_child(folium.Element(legend_html))
                 stop_counter += 1
                 folium.PolyLine(locations=[coord[::-1] for coord in route['features'][0]['geometry']['coordinates']],
                                 color='red').add_to(m)
