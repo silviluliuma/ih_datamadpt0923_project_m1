@@ -7,7 +7,6 @@ import pandas as pd
 import folium
 import openrouteservice as ors
 from geopy.distance import great_circle
-
 from modules import route
 from modules import argparse_route
 

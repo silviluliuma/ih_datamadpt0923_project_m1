@@ -68,9 +68,13 @@ def number_DivIcon(color,number):
 def get_route_map(stations_real_time, number_district):
     load_dotenv('../.env')
     client = ors.Client(key=os.environ.get("openroute_api_key"))
-    vehicle_start = [-3.6823731969472644, 40.46209827032537]
+    s = input("Is this your initial route? If not, enter your actual coordinates: ")
+    if s == "yes":
+        vehicle_start = [-3.6823731969472644, 40.46209827032537]
+    else:
+        vehicle_start = [eval(s)[1], eval(s)[0]]
     m = folium.Map(location=[vehicle_start[1], vehicle_start[0]], zoom_start=12)
-    folium.Marker(location=[vehicle_start[1], vehicle_start[0]], popup='CENTRAL EMT', icon=folium.Icon(color='purple')).add_to(m)
+    folium.Marker(location=[vehicle_start[1], vehicle_start[0]], popup='INICIO DE LA RUTA', icon=folium.Icon(color='purple')).add_to(m)
     distrito_low= get_light0(get_district(stations_real_time, number_district)).copy()
     distrito_high= get_light1(get_district(stations_real_time, number_district)).copy()
     distrito_low["visited"] = False
@@ -91,6 +95,7 @@ def get_route_map(stations_real_time, number_district):
                 van = "full"
                 folium.Marker(
                                 location=[nearest_station[1], nearest_station[0]],
+                                popup = [nearest_station[1], nearest_station[0]],
                                 icon=folium.Icon(color='orange',icon_color='orange'),
                             ).add_to(m)
                 folium.Marker(location=[nearest_station[1], nearest_station[0]],
@@ -108,20 +113,23 @@ def get_route_map(stations_real_time, number_district):
                 route = create_route(client, coords_list[-2], coords_list[-1])
                 van = "empty"
                 folium.Marker(location=[nearest_station[1], nearest_station[0]],
+                              popup = [nearest_station[1], nearest_station[0]],
                             icon=folium.Icon(color='darkgreen', icon_color='green')).add_to(m)
                 folium.Marker(location=[nearest_station[1], nearest_station[0]],
                               icon = number_DivIcon("#12A14B", stop_counter)).add_to(m)
                 legend_html = '''
                 <div style="position: fixed; 
-                 bottom: 40px; left: 70px; width: 280px; height: 155px; 
-                 border:2px solid grey; z-index:9999; font-size:14px;
-                 background-color:white; padding: 10px; margin-left: 20px;
-                 ">&nbsp; <b>Instrucciones de reparto biciMAD</b> <br>
-                 &nbsp; 1. Por favor, cargue las bicicletas en las estaciones naranjas &nbsp; <i class="fa fa-map-marker" style="color:orange"></i><br>
-                 &nbsp; 2. Descárguelas en las estaciones verdes &nbsp; <i class="fa fa-map-marker" style="color:green"></i><br>
-                 &nbsp; Conduzca con cuidado y que tenga un buen turno &nbsp; <i class="fa fa-smile-o" style="color:blue"></i>
-                 </div>
-                '''
+                bottom: 40px; left: 70px; width: 280px; height: 250 px; 
+                border: 2px solid grey; z-index: 9999; font-size: 14px;
+                background-color: white; padding: 10px; margin-left: 20px;">
+                    <b>Instrucciones de reparto biciMAD</b> <br>
+                    1. Por favor, cargue las bicicletas en las estaciones naranjas. &nbsp; <i class="fa fa-map-marker" style="color:orange"></i><br>
+                    2. Descárguelas en las estaciones verdes. &nbsp; <i class="fa fa-map-marker" style="color:green"></i><br>
+                    3. Si todavía queda tiempo en su jornada laboral, reinicie la aplicación en la última estación e introduzca sus nuevas coordenadas.<br>
+                    4. Conduzca con cuidado y que tenga un buen turno. &nbsp; <i class="fa fa-smile-o" style="color:blue"></i><br>
+                    En caso de incidente, no olvide contactar con su gerente. Buen trabajo.
+                </div>
+                        '''
                 m.get_root().html.add_child(folium.Element(legend_html))
                 stop_counter += 1
                 folium.PolyLine(locations=[coord[::-1] for coord in route['features'][0]['geometry']['coordinates']],
