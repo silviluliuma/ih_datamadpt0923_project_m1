@@ -80,7 +80,7 @@ def get_route_map(stations_real_time, number_district):
     distrito_low["visited"] = False
     distrito_high["visited"] = False
     current_coords = vehicle_start
-    van = "empty"
+    van = input("Is your van empty or full? ")
     coords_list = [current_coords]
     stop_counter = 1 
     for i in range(100):
@@ -134,7 +134,9 @@ def get_route_map(stations_real_time, number_district):
                 stop_counter += 1
                 folium.PolyLine(locations=[coord[::-1] for coord in route['features'][0]['geometry']['coordinates']],
                                 color='red').add_to(m)
+    vehicle_start = [-3.6823731969472644, 40.46209827032537]
     final_route = create_route(client, coords_list[-1], vehicle_start)
+    folium.Marker(location=[vehicle_start[1], vehicle_start[0]], popup='CENTRAL EMT', icon=folium.Icon(color='purple')).add_to(m)
     folium.PolyLine(locations=[coord[::-1] for coord in final_route['features'][0]['geometry']['coordinates']],
                                 color='red').add_to(m)
 
