@@ -2,7 +2,7 @@
 
 # __biciMAD-worker Ironhack Project Module 1__
 
-biciMAD-worker provides an optimized route between high and low-populated biciMAD stations, aiming to solve one of the platform's biggest problems: the redistribution of bikes among various stations.
+biciMAD-worker provides an optimized route between high and low-populated biciMAD stations, aiming to solve one of the platform's biggest problems: the **redistribution** of bikes among various stations.
 
 ## **Status**
 
@@ -10,7 +10,7 @@ biciMAD-worker is project for the Ironhack Data Analysis Bootcamp (Madrid 2023)
 
 ## **Additional info:**
 
-This app utilizes the biciMAD API to gather real-time information about biciMAD stations. It employs a function to consistently calculate the nearest low or high-populated station, depending on the route's characteristics and input from the worker.
+This app utilizes the biciMAD API to gather **real-time information** about biciMAD stations. It employs a function to consistently calculate the nearest low or high-populated station, depending on the route's characteristics and input from the worker.
 
 The app prompts the worker for three inputs:
 
@@ -43,14 +43,13 @@ The app prompts the worker for three inputs:
         └──functions.py # module corresponding to the main challenge of the project (not biciMAD-worker)
         └──route.py
     ├── notebooks
-    │   ├── dev_api.ipynb
-    │   └── dev_bicimad.ipynb
+        ├── dev_api.ipynb
+        └── dev_bicimad.ipynb
         └── dev_bicipark.ipynb
         └── dev_notebook.ipynb
         └── dev_occupation.ipynb
         └── dev_route.ipynb
-    ├── .env
-    │  
+    ├── .env 
     └── .gitignore
     └── LICENSE
     └── main.py
@@ -60,7 +59,7 @@ The app prompts the worker for three inputs:
 ```
 ## **Technical information**
 
-You can use the code of biciMAD-worker, as long as you give autorship credits. 
+You can use the code of biciMAD-worker, as long as you give **autorship credits**. 
 
 Please, clone this GitHub repository to your local machine.
 
@@ -75,11 +74,11 @@ You will need to install the following:
 
 ## **Inspiration**
 
-This project addresses the frequent complaints from biciMAD users concerning the uneven distribution of bikes among the stations. Throughout the workday, stations near business areas tend to become completely full due to people cycling to work, while stations in residential areas are left empty. This initiative is not only an attempt to resolve user issues but also aims to enhance the working conditions for the employees involved.
+This project addresses the frequent complaints from biciMAD users concerning the **uneven distribution** of bikes among the stations. Throughout the workday, stations near business areas tend to become completely full due to people cycling to work, while stations in residential areas are left empty. This initiative is not only an attempt to resolve user issues but also **aims to enhance the working conditions for the employees involved**.
 
 ## **Things to improve**
 
-In the future, the project will need to consider the current capacity of the van. If the van is entirely empty, the app should exclusively search for high-populated stations. If the van has bikes but still has space, the app could search for both high and low-populated stations. However, if the van is completely full, the app should focus solely on low-populated stations. The status of the van should be updated with every interaction, contributing to the continuous optimization of the route.
+In the future, the project will need to consider the **current capacity of the van**. If the van is entirely empty, the app should exclusively search for high-populated stations. If the van has bikes but still has space, the app could search for both high and low-populated stations. However, if the van is completely full, the app should focus solely on low-populated stations. The status of the van should be updated with every interaction, contributing to the continuous optimization of the route.
 
 ## **Contact**
 
