@@ -123,7 +123,7 @@ def get_route_map(stations_real_time, number_district):
                 border: 2px solid grey; z-index: 9999; font-size: 14px;
                 background-color: white; padding: 10px; margin-left: 20px;">
                     <b>Instrucciones de reparto biciMAD</b> <br>
-                    1. Por favor, cargue las bicicletas en las estaciones naranjas. &nbsp; <i class="fa fa-map-marker" style="color:orange"></i><br>
+                    1. Por favor, recoja las bicicletas en las estaciones naranjas. &nbsp; <i class="fa fa-map-marker" style="color:orange"></i><br>
                     2. Descárguelas en las estaciones verdes. &nbsp; <i class="fa fa-map-marker" style="color:green"></i><br>
                     3. Si todavía queda tiempo en su jornada laboral, reinicie la aplicación en la última estación e introduzca sus nuevas coordenadas.<br>
                     4. Conduzca con cuidado y que tenga un buen turno. &nbsp; <i class="fa fa-smile-o" style="color:blue"></i><br>
