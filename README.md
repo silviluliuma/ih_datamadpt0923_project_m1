@@ -6,6 +6,8 @@ biciMAD-worker provides biciMAD workers with an optimized route between the high
 
 ## **Additional info:**
 
+This apps uses the biciMAD API to take real-time information about the biciMAD stations and uses a function to repeatedly calculate the nearest low or high populated station (depending on the particularities of the route and the inputs from the worker).
+
 The app will ask the worker for three inputs:
 
 1. **What district have you been assigned today?** The input here will be one of the 21 districts that exist in Madrid (f.e. 20). 
@@ -14,64 +16,43 @@ The app will ask the worker for three inputs:
 
 3. **Is your van empty or full?** The input here will be either "empty" or "full", depending of the status of the last station visited by the worker on the route. If the last station was a high populated one, the worker will have to take the spare bikes on the van and will start the next route with them, and so the first stop of the next route will be a low populated station. On the contrary, if the last station was a low populated one, the worker will have an empty van and so the first stop of the next route will be a high populated station. The same will happen if it is the first route of said worker.
 
-## **Main Challenge:**
+## **Tablet of contents**
 
-You must create a Python App (**Data Pipeline**) that allow their potential users to find the nearest BiciMAD station to a set of places of interest using the methods included in the module `geo_calculations.py`. The output table should look similar to:
-
-| Place of interest | Type of place (*) | Place address | BiciMAD station | Station location |
-|---------|----------|-------|------------|----------|
-| Auditorio Carmen Laforet (Ciudad Lineal)   | Centros Culturales | Calle Jazmin, 46 | Legazpi | Calle Bolívar, 3 |
-| Centro Comunitario Casino de la Reina | Centros municipales de enseñanzas artísticas | Calle Casino, 3 | Chamartin | Calle Rodríguez Jaén, 40 |
-| ...     | ...            | ...        | ...      | ...        |
-> __(*)__ This correspond to the type of place assigned to you. 
-
-
-**Your project must meet the following requirements:**
-
-- It must be contained in a GitHub repository which includes a README file that explains the aim and content of your code. You may follow the structure suggested [here](https://github.com/potacho/data-project-template).
-
-- __It must create, at least, a `.csv` file including the requested table (i.e. Main Challenge).__ Alternatively, you may create an image, pdf, plot or any other output format that you may find convenient. You may also send your output by e-mail, upload it to a cloud repository, etc. 
-
-- It must provide, at least, two options for the final user to select when executing using `argparse`: **(1)** To get the table for every 'Place of interest' included in the dataset (or a set of them), **(2)** To get the table for a specific 'Place of interest' imputed by the user.
-
-
-**Additionally:**
-
-- You must prepare a 4 minutes presentation (ppt, canva, etc.) to explain your project (Instructors will provide further details about the content of the presentation).
-
-- The last slide of your presentation must include your candidate for the **'Ironhack Data Code Beauty Pageant'**. 
-
-
----
-
-### **Bonus 1:**
-
-You may include in your table the availability of bikes in each station.
-
----
-
-### **Bonus 2:**
-
-You may improve the usability of your app by using [FuzzyWuzzy](https://pypi.org/project/fuzzywuzzy/).
-
----
-
-### **Bonus 3:**
-
-Feel free to enrich your output data with any data you may find relevant (e.g.: wiki info for every place of interest) or connect to the [BiciMAD API](https://mobilitylabs.emtmadrid.es/) and update bikes availability realtime or find a better way to calculate distances...there's no limit!!!
-
---- 
+└── project
+    ├── __wip__
+    ├── data
+    ├── maps #maps generated with the app as an example
+        └──ROUTE_MAP_20_DISTRICT.html
+        └──ROUTE_MAP_21_DISTRICT.html
+    ├── raw #raw data corresponding to the main challenge of the project (not biciMAD-worker)
+        └──bicimad_stations.csv
+        └──bicipark_stations.csv
+    ├── results #results corresponding to the main challenge of the project (not biciMAD-worker)
+        └──BICIMAD_ONE_RESULT.csv
+        └──BICIMAD_PARKING_RESULT.csv
+    ├── modules
+        └──api.py #module corresponding to the main challenge of the project (not biciMAD-worker)
+        └──argparse_route.py
+        └──argparse.py #module corresponding to the main challenge of the project (not biciMAD-worker)
+        └──functions.py # module corresponding to the main challenge of the project (not biciMAD-worker)
+        └──route.py
+    ├── notebooks
+    │   ├── dev_api.ipynb
+    │   └── dev_bicimad.ipynb
+        └── dev_bicipark.ipynb
+        └── dev_notebook.ipynb
+        └── dev_occupation.ipynb
+        └── dev_route.ipynb
+    ├── .env
+    │  
+    └── .gitignore
+    └── LICENSE
+    └── main.py
+    └── README.md
+    └── route_main.py
+    
 
 
-## **Project Main Stack**
-
-- [Requests](https://requests.readthedocs.io/)
-
-- [Pandas](https://pandas.pydata.org/pandas-docs/stable/reference/index.html)
-
-- Module `geo_calculations.py`
-
-- [Argparse](https://docs.python.org/3.9/library/argparse.html)
 
 
 
