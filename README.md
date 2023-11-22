@@ -4,6 +4,10 @@
 
 biciMAD-worker provides biciMAD workers with an optimized route between the high and low populated biciMAD stations with the aim of solving one of the biggest problems of the platform: the redistribution of bikes along the different stations. 
 
+## **Status**
+
+biciMAD-worker is project for the Ironhack Data Analysis Bootcamp (Madrid 2023)
+
 ## **Additional info:**
 
 This apps uses the biciMAD API to take real-time information about the biciMAD stations and uses a function to repeatedly calculate the nearest low or high populated station (depending on the particularities of the route and the inputs from the worker).
@@ -16,7 +20,9 @@ The app will ask the worker for three inputs:
 
 3. **Is your van empty or full?** The input here will be either "empty" or "full", depending of the status of the last station visited by the worker on the route. If the last station was a high populated one, the worker will have to take the spare bikes on the van and will start the next route with them, and so the first stop of the next route will be a low populated station. On the contrary, if the last station was a low populated one, the worker will have an empty van and so the first stop of the next route will be a high populated station. The same will happen if it is the first route of said worker.
 
-´´´## **Tablet of contents**
+## **Tablet of contents**
+
+```
 
 └── project
     ├── __wip__
@@ -49,7 +55,35 @@ The app will ask the worker for three inputs:
     └── LICENSE
     └── main.py
     └── README.md
-    └── route_main.py´´´
+    └── route_main.py
+
+```
+## **Technical information**
+
+You can use the code of biciMAD-worker, as long as you give autorship credits. 
+
+You have to clone this github repository in your local. 
+
+You will need to install the following:
+
+    -Pandas
+    -Requests
+    -Json
+    -Folium
+    -Openrouteservice
+    -Geopy
+
+## **Inspiration**
+
+This project arises from the existing complaints from the biciMAD users regarding the redistribution of bikes along the stations. During the workday, stations close to business areas use to be completely full (people go to work cycling), leaving the station of the residential areas empty. This is an attempt, not only to solve the users problem, but also to solve and improve the workers situation.
+
+## **Things to improve**
+
+In the future, the project would need to take in consideration the actual capacity of the van. If the van is completely empty, then the app should only search for high populated stations. If the van has bikes but there is still space, then the app could search for both high and low populated stations. At least, if the van is completely full, the app should only search for low populated stations. The status of the van should be updated with every interaction. This would improve the optimization of the route.
+
+## **Contact**
+
+You can contact me here: valeromsilvia@gmail.com
 
 
 
