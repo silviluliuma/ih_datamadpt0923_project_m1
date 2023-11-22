@@ -16,7 +16,7 @@ The app will ask the worker for three inputs:
 
 3. **Is your van empty or full?** The input here will be either "empty" or "full", depending of the status of the last station visited by the worker on the route. If the last station was a high populated one, the worker will have to take the spare bikes on the van and will start the next route with them, and so the first stop of the next route will be a low populated station. On the contrary, if the last station was a low populated one, the worker will have an empty van and so the first stop of the next route will be a high populated station. The same will happen if it is the first route of said worker.
 
-## **Tablet of contents**
+´´´## **Tablet of contents**
 
 └── project
     ├── __wip__
@@ -49,7 +49,7 @@ The app will ask the worker for three inputs:
     └── LICENSE
     └── main.py
     └── README.md
-    └── route_main.py
+    └── route_main.py´´´
 
 
 
