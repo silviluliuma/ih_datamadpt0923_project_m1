@@ -1,50 +1,18 @@
 <p align="left"><img src="https://cdn-images-1.medium.com/max/184/1*2GDcaeYIx_bQAZLxWM4PsQ@2x.png"></p>
 
-# __ih_datamadpt0923_project_m1__
+# __biciMAD-worker Ironhack Project Module 1__
 
-Ironhack Madrid - Data Analytics Part Time - Sep 2023 - Project Module 1
+biciMAD-worker provides biciMAD workers with an optimized route between the high and low populated biciMAD stations with the aim of solving one of the biggest problems of the platform: the redistribution of bikes along the different stations. 
 
-## **Data:**
+## **Additional info:**
 
-There are 2 main datasources:
+The app will ask the worker for three inputs:
 
-- **CSV Files.** The datasets contains information from the BiciMAD stations including their location (i.e.: latitude / longitude). You may find the `.csv` files in the __data__ folder.
+1. **What district have you been assigned today?** The input here will be one of the 21 districts that exist in Madrid (f.e. 20). 
 
-- **API REST.** We will use the API REST from the [Portal de datos abiertos del Ayuntamiento de Madrid](https://datos.madrid.es/nuevoMadrid/swagger-ui-master-2.2.10/dist/index.html?url=/egobfiles/api.datos.madrid.es.json#/), where you can find the __Catálogo de datos__ with more than 70 datasets. The API endpoint is `https://datos.madrid.es/egob`. 
+2. **Is this your initial route? If not, enter your actual coordinates:** The input here will be either "yes", in which case the route will start in the EMT Central (where the vans are stored) or a list of coordinates provided to them by the app (usually when the worker is assigned another district because they have completed their first). In this case, the route will take as a start point the coordinates provided. 
 
-> __IMPORTANT:__ These are the body corresponding to every dataset:
-
-- Alana: `/catalogo/209426-0-templos-catolicas.json`
-
-- Alberto: `/catalogo/209434-0-templos-otros.json`
-
-- Ana: `/catalogo/202162-0-instalaciones-accesibles-municip.json`
-
-- Andrew: `/catalogo/202180-0-instalaciones-accesibles-no-muni.json`
-
-- Carlos: `/catalogo/202311-0-colegios-publicos.json`
-
-- Elena: `/catalogo/203166-0-universidades-educacion.json`
-
-- Guille: `/catalogo/200215-0-instalaciones-deportivas.json`
-
-- John: `/catalogo/200304-0-centros-culturales.json`
-
-- Natalia: `/catalogo/201000-0-embajadas-consulados.json`
-
-- Rodrigo: `/catalogo/300356-0-monumentos-ciudad-madrid.json`
-
-- Sil: `/catalogo/208844-0-monumentos-edificios.json`
-
-- Silvia: `/catalogo/300614-0-centros-educativos.json`
-
-- Tere: `/catalogo/200761-0-parques-jardines.json`
-
-- Tomás: `/catalogo/212808-0-espacio-deporte.json`
-
-
-
----
+3. **Is your van empty or full?** The input here will be either "empty" or "full", depending of the status of the last station visited by the worker on the route. If the last station was a high populated one, the worker will have to take the spare bikes on the van and will start the next route with them, and so the first stop of the next route will be a low populated station. On the contrary, if the last station was a low populated one, the worker will have an empty van and so the first stop of the next route will be a high populated station. The same will happen if it is the first route of said worker.
 
 ## **Main Challenge:**
 
