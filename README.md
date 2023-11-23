@@ -4,9 +4,12 @@
 
 biciMAD-worker provides an optimized route between high and low-populated biciMAD stations, aiming to solve one of the platform's biggest problems: the **redistribution** of bikes among various stations.
 
+![Captura de pantalla 2023-11-22 a las 16 35 55](https://github.com/silviluliuma/ih_datamadpt0923_project_m1/assets/138609959/4add47cd-53ff-4b07-9463-e03914177fd5)
+
+
 ## **Status**
 
-biciMAD-worker is project for the Ironhack Data Analysis Bootcamp (Madrid 2023)
+biciMAD-worker is python based project for the Ironhack Data Analysis Bootcamp (Madrid 2023)
 
 ## **Additional info:**
 
@@ -20,6 +23,9 @@ The app prompts the worker for three inputs:
 
 **3. Is your van empty or full?** The worker selects either "empty" or "full," based on the last station visited. If the last station was high-populated, the worker loads spare bikes onto the van, and the first stop of the next route is a low-populated station. Conversely, if the last station was low-populated, the worker starts the next route with an empty van, and the first stop is a high-populated station. The same applies to the worker's first route.
 
+<img width="587" alt="Captura de pantalla 2023-11-22 a las 19 25 08" src="https://github.com/silviluliuma/ih_datamadpt0923_project_m1/assets/138609959/39526901-5afb-4be3-a587-70e537db7455">
+
+
 ## **Tablet of contents**
 
 ```
@@ -27,34 +33,34 @@ The app prompts the worker for three inputs:
 └── project
     ├── __wip__
     ├── data
-    ├── maps #maps generated with the app as an example
-        └──ROUTE_MAP_20_DISTRICT.html
-        └──ROUTE_MAP_21_DISTRICT.html
-    ├── raw #raw data corresponding to the main challenge of the project (not biciMAD-worker)
-        └──bicimad_stations.csv
-        └──bicipark_stations.csv
-    ├── results #results corresponding to the main challenge of the project (not biciMAD-worker)
-        └──BICIMAD_ONE_RESULT.csv
-        └──BICIMAD_PARKING_RESULT.csv
+        └──maps (biciMAD-worker)
+            └──ROUTE_MAP_20_DISTRICT.html
+            └──ROUTE_MAP_21_DISTRICT.html
+        ├── raw 
+            └──bicimad_stations.csv
+            └──bicipark_stations.csv
+        ├── results 
+            └──BICIMAD_ONE_RESULT.csv
+            └──BICIMAD_PARKING_RESULT.csv
     ├── modules
-        └──api.py #module corresponding to the main challenge of the project (not biciMAD-worker)
-        └──argparse_route.py
-        └──argparse.py #module corresponding to the main challenge of the project (not biciMAD-worker)
-        └──functions.py # module corresponding to the main challenge of the project (not biciMAD-worker)
-        └──route.py
+        └──api.py 
+        └──argparse_route.py (biciMAD-worker)
+        └──argparse.py 
+        └──functions.py 
+        └──route.py (biciMAD-worker)
     ├── notebooks
         ├── dev_api.ipynb
         └── dev_bicimad.ipynb
         └── dev_bicipark.ipynb
         └── dev_notebook.ipynb
-        └── dev_occupation.ipynb
-        └── dev_route.ipynb
+        └── dev_occupation.ipynb (biciMAD-worker)
+        └── dev_route.ipynb (biciMAD-worker)
     ├── .env 
     └── .gitignore
     └── LICENSE
     └── main.py
     └── README.md
-    └── route_main.py
+    └── route_main.py (biciMAD-worker)
 
 ```
 ## **Technical information**
@@ -65,12 +71,12 @@ Please, clone this GitHub repository to your local machine.
 
 You will need to install the following:
 
-    -Pandas
-    -Requests
-    -Json
-    -Folium
-    -Openrouteservice
-    -Geopy
+    * Pandas
+    * Requests
+    * Json
+    * [Folium](https://python-visualization.github.io/folium/latest/getting_started.html)
+    * [Openrouteservice](https://openrouteservice.org/)
+    * Geopy
 
 ## **Inspiration**
 
@@ -80,25 +86,10 @@ This project addresses the frequent complaints from biciMAD users concerning the
 
 In the future, the project will need to consider the **current capacity of the van**. If the van is entirely empty, the app should exclusively search for high-populated stations. If the van has bikes but still has space, the app could search for both high and low-populated stations. However, if the van is completely full, the app should focus solely on low-populated stations. The status of the van should be updated with every interaction, contributing to the continuous optimization of the route.
 
+Also, it would be nice to use the spectacular **VROOM project** (https://github.com/VROOM-Project/vroom), which has an awesome optimization route system that allows pickups and deliveries and takes into account the time used by each worker to complete their tasks. This would offer a whole new set of possibilities.
+
 ## **Contact**
 
 You can contact me here: valeromsilvia@gmail.com
 
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-
-
- 
-
+![tumblr_otvsbuaaRF1vha0yxo5_r1_250](https://github.com/silviluliuma/ih_datamadpt0923_project_m1/assets/138609959/f597f7de-0741-4079-a9ac-a94b92359e8a)
